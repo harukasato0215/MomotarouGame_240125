@@ -1,0 +1,10 @@
+
+public abstract class BattleCharacter implements Character {
+	
+	String name;
+	int hp;
+	
+	public abstract void atack();
+	public abstract void run();
+
+}

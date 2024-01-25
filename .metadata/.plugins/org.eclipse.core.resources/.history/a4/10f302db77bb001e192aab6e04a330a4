@@ -1,0 +1,9 @@
+
+public class Oldman extends Character {
+	String name;
+	
+	public Oldman() {
+		this.name ="おじいさん";
+	}
+
+}

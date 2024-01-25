@@ -1,0 +1,14 @@
+import java.util.*;
+import java.util.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		
+		Peachboy Peachboy = new Peachboy();
+		
+		String name =new Scanner(System.in).nextLine();
+		System.out.println(Peachboy.name(name));
+	}
+
+}

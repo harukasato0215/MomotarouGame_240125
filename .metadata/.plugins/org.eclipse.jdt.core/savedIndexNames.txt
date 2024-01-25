@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\1221PM\Desktop\momotarouGame_240125\.metadata\.plugins\org.eclipse.jdt.core
+1614943495.index
+1874874577.index
+1865797976.index

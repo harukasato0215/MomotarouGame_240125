@@ -1,0 +1,9 @@
+
+public interface BattleCreature extends Character {
+	void hp();
+	void atack();
+	void run();
+	void eat();
+	void sleep();
+
+}
