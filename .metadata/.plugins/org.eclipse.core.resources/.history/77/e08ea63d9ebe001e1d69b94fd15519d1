@@ -1,0 +1,13 @@
+
+public abstract class BattleCharacter extends Character {
+	String name;
+	int hp;
+	
+	public void attack() {
+		
+	}
+	public void run() {
+		
+	}
+
+}

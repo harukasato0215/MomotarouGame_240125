@@ -2,10 +2,6 @@
 public class Peachboy extends Character {
 	private String name;
 	private int hp = 1000;
-	Sword sword;
-	Kibidango kibidango;
-	
-	
 	
 	public String getName() {
 		return this.name + "太郎";

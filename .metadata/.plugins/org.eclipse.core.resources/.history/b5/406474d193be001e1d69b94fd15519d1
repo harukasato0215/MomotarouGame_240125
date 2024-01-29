@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Peachboy boy = new Peachboy();
+		
+		put ("【ももたろう】");
+		scan.nextLine();
+		put("昔々、ある老夫婦のおうちにとても大きなモモが届きました。");
+		scan.nextLine();
+		put("早速割ってみると中には元気な赤ちゃんがいました。");
+		scan.nextLine();
+		put("あなたの名前は？");
+		System.out.print("入力してください>>");
+		String name =scan.nextLine();
+		boy.setName(name);
+		
+		put(boy.getName());
+	}
+	public static void put(String str) {
+		System.out.println(str);
+	}
+
+}
+
+
