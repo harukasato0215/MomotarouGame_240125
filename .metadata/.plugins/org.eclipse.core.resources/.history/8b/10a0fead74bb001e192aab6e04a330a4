@@ -1,7 +1,0 @@
-
-public abstract class Ogre extends BattleCharacter {
-	int hp;
-	int name;
-	
-	
-}

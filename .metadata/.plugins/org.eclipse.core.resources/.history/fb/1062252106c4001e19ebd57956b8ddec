@@ -59,16 +59,9 @@ public class Main {
 		put("【1.右側の道　2.真ん中の道　3.左側の道】>>");
 		int adventureSelect =scan.nextInt();
 		int randomAdventure = new Random().nextInt(3);
-		int getCount =0;
+		
 		switch(randomAdventure) {
 		case 0 ://仲間ゲット
-			String[] animalNames = {"サル","",""}; 
-			switch(getCount) {
-			case 0:
-			put("道を歩いていると" +  +"が現れた！");
-				
-			}
-			
 			break;
 		case 1 ://敵と戦う
 			put("道を歩いていると" +child.name  +"が現れた！");

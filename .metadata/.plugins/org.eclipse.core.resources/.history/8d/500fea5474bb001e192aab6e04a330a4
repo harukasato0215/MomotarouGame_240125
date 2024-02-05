@@ -1,7 +1,0 @@
-
-public abstract class Ogre implements BattleCreature {
-	int hp;
-	int name;
-	
-	
-}
