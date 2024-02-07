@@ -1,12 +1,15 @@
 package character.party;
 
-import character.BattleCharacter;
+import java.util.Random;
+
+import character.demon.DemonIsland;
 import item.Kibidango;
 import item.Sword;
+import main.Main;
 
-public class PeachBoy extends BattleCharacter {
+public class PeachBoy extends PartyCharacter {
 	private String name;
-	private int hp = 1000;
+	private int hp = 3000;
 	public Sword sword;
 	public Kibidango kibidango;
 	
@@ -24,26 +27,30 @@ public class PeachBoy extends BattleCharacter {
 		return this.hp;
 	}
 	
-	public void setName(int hp) {
+	public void setHp(int hp) {
 		if (hp < 0) {
-			this.hp = 0;}
+			this.hp = 0;
+			Main.put(this.name + "は倒れた！");}
 		else{
 			this.hp = hp;
 		}
 	}
 
-	@Override
-	public void attack() {
-		
+
+	public void attack(DemonIsland demon) {
+		int random =new Random().nextInt(200)+600;//100-300
+		Main.put(this.name + "は剣で攻撃した！");
+		//スペースきー
+		Main.put("【"+ random  +"のダメージ！】");
+		//てきのダメージをかく
 		
 	}
 
+	
 
-	@Override
-	public void heal() {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
+
+	
+
 
 	
 }

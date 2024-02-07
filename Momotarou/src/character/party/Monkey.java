@@ -1,19 +1,45 @@
 package character.party;
 
-import character.BattleCharacter;
+import java.util.Random;
 
-public class Monkey extends BattleCharacter{
+import character.demon.DemonIsland;
+import main.Main;
 
-	@Override
-	public void attack() {
-		// TODO 自動生成されたメソッド・スタブ
+public class Monkey extends PartyCharacter{
+	private String name ="サル";
+	private int hp =2200;
+
+
+	public String getName() {
+		return this.name ;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public int getHp() {
+		return this.hp;
+	}
+	
+	public void setHp(int hp) {
+		if (hp < 0) {
+			this.hp = 0;
+			Main.put(this.name + "は倒れた！");}
+		else{
+			this.hp = hp;
+		}
+	}
+	
+	
+	public void attack(DemonIsland demon) {
+		int random =new Random().nextInt(200)+100;//100-300
+		Main.put(this.name + "は顔をひっかいた！");
+		//スペースきー
+		Main.put("【" + random  +"のダメージ！】");
+		//てきのダメージをかく
 		
 	}
 
-	@Override
-	public void heal() {
-		// TODO 自動生成されたメソッド・スタブ
-		
-	}
 
 }

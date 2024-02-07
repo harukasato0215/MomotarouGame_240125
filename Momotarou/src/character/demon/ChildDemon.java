@@ -1,14 +1,31 @@
 package character.demon;
 
-import character.BattleCharacter;
+import main.Main;
 
-public class ChildDemon extends BattleCharacter{
+public class ChildDemon extends DemonIsland{
 
-	public String name = "小鬼";
-	int hp = 800;
+	private String name = "小鬼";
+	private int hp = 800;
+	
+	public String getName() {
+		return this.name ;
+	}
 	
 	
-	@Override
+	public int getHp() {
+		return this.hp;
+	}
+	
+	public void setHp(int hp) {
+		if (hp < 0) {
+			this.hp = 0;
+			Main.put(this.name + "は倒れた！");}
+		else{
+			this.hp = hp;
+		}
+	}
+	
+
 	public void attack() {
 	
 		

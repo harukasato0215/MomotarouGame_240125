@@ -1,10 +1,8 @@
 package character.demon;
 
-import character.BattleCharacter;
+public class BigDemon  extends DemonIsland{
 
-public class BigDemon  extends BattleCharacter{
-
-	@Override
+	
 	public void attack() {
 		// TODO 自動生成されたメソッド・スタブ
 		
