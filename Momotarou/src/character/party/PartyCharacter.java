@@ -1,6 +1,7 @@
 package character.party;
 
 import java.util.Random;
+import java.util.Scanner;
 
 import character.BattleCharacter;
 import character.demon.DemonIsland;
@@ -20,13 +21,16 @@ public abstract class PartyCharacter extends BattleCharacter {
 	public void heal() {
 		int random =new Random().nextInt(100,301);//100-300
 		Main.put(getName() + "はきびだんごを食べて " + random + " 回復した" );
+		System.out.printf("【%sは、　%d　回復した！ 】\n",getName(),random);
 		setHp(getHp() + random) ;
+		new Scanner(System.in).nextLine();
 	}
 
 	//寝た時の回復
 	public void sleepHeal() {
 		int random =new Random().nextInt(300,800);
-		Main.put(getName() + "は"+ random +"回復した！");
+		System.out.printf("【%sは、　%d　回復した！ 】\n",getName(),random);
 		setHp(getHp() + random) ;
+		new Scanner(System.in).nextLine();
 	}
 }

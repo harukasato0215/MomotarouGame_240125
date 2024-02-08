@@ -3,6 +3,7 @@ package character.demon;
 import java.util.Random;
 
 import character.BattleCharacter;
+import character.party.PartyCharacter;
 import main.Main;
 
 public abstract  class DemonIsland extends BattleCharacter {
@@ -12,6 +13,8 @@ public abstract  class DemonIsland extends BattleCharacter {
 		setHp(getHp());
 	}
 
+	public abstract void attack(PartyCharacter p);
+	
 	public void heal() {
 		
 		int heal = new Random().nextInt(100,200);

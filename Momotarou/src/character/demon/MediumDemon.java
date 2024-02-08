@@ -10,7 +10,7 @@ public class MediumDemon  extends DemonIsland{
 
 	public MediumDemon() {
 		setName("鬼");
-		int hp = new Random().nextInt(10000,15001);
+		int hp = new Random().nextInt(2000,3001);
 		setHp(hp);
 	}
 

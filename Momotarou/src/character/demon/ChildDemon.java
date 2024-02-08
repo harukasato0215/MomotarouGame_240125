@@ -9,7 +9,7 @@ public class ChildDemon extends DemonIsland{
 
 	public ChildDemon() {
 		setName("小鬼");
-		int hp = new Random().nextInt(3000,5001);//（）内は以上、未満
+		int hp = new Random().nextInt(1000,1501);//（）内は以上、未満
 		setHp(hp);
 	}
 	
