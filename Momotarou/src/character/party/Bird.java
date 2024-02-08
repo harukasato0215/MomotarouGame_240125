@@ -1,42 +1,27 @@
 package character.party;
 
 import java.util.Random;
+import java.util.Scanner;
 
 import character.demon.DemonIsland;
 import main.Main;
 
 public class Bird extends PartyCharacter {
 
-	private String name ="キジ";
-	private int hp =1700;
-
-	public String getName() {
-		return this.name ;
+	public Bird() {
+		setName("キジ");
+		setHp(1700);
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
 	
-	public int getHp() {
-		return this.hp;
-	}
-	
-	public void setHp(int hp) {
-		if (hp < 0) {
-			this.hp = 0;
-			Main.put(this.name + "は倒れた！");}
-		else{
-			this.hp = hp;
-		}
-	}
 
 	public void attack(DemonIsland demon) {
-		int random =new Random().nextInt(200)+400;//100-300
-		Main.put(this.name + "は目をつついた！");
-		//スペースきー
-		Main.put("【" + random  +"のダメージ！】");
-		//てきのダメージをかく
+		int random =new Random().nextInt(400,601);
+		Main.put(getName() + "は目をつついた！");
+		new Scanner(System.in).nextLine();
+		System.out.printf("【　%sは、%sに　%d　のダメージを与えた！　】\n",getName(),demon.getName(),random );
+		demon.setHp(demon.getHp() - random);
+		new Scanner(System.in).nextLine();
 		
 	}
 

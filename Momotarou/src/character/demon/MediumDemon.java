@@ -1,41 +1,28 @@
 package character.demon;
 
+import java.util.Random;
+import java.util.Scanner;
+
+import character.party.PartyCharacter;
 import main.Main;
 
 public class MediumDemon  extends DemonIsland{
 
-
-	public String getName() {
-		return this.name ;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public int getHp() {
-		return this.hp;
-	}
-	
-	public void setHp(int hp) {
-		if (hp < 0) {
-			this.hp = 0;
-			Main.put(this.name + "は倒れた！");}
-		else{
-			this.hp = hp;
-		}
-	}
-	
-	
-	public void attack() {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	public MediumDemon() {
+		setName("鬼");
+		int hp = new Random().nextInt(10000,15001);
+		setHp(hp);
 	}
 
-	@Override
-	public void heal() {
-		// TODO 自動生成されたメソッド・スタブ
-		
+	
+	
+	public void attack(PartyCharacter p) {
+		Main.put(getName() + "は石を投げてきた！");
+		new Scanner(System.in).nextLine();
+		int damage = new Random().nextInt(200,701);
+		p.setHp(getHp() - damage);
+		Main.put("【" + getName() + "は" + damage +"のダメージ！】");
+	
 	}
 
 }

@@ -1,25 +1,28 @@
 package character;
 
+import java.util.Scanner;
+
 import main.Main;
 
 public abstract class BattleCharacter extends Character {
 	
-	
+	public BattleCharacter() {
+		setName(getName());
+	}
 	//public abstract void attack() ;
 	public abstract void heal() ;
 	
 	
 	public void noAttack() {
-		Main.put(this.name +"の攻撃は当たらなかった…");
+		Main.put(getName() +"の攻撃は当たらなかった…");
+		new Scanner(System.in).nextLine();
 	}
 	
 	public void run() {
-		System.out.println(this.name + "は逃げ出した！");
+		System.out.println(getName() + "は逃げ出した！");
 		
 	}
 	
-	public void die() {
-		Main.put(this.name +"は倒れた！");
-	}
+	
 
 }

@@ -1,42 +1,27 @@
 package character.party;
 
 import java.util.Random;
+import java.util.Scanner;
 
 import character.demon.DemonIsland;
 import main.Main;
 
 public class Dog extends PartyCharacter{
-	private String name ="イヌ";
-	private int hp =2000;
-
-
-	public String getName() {
-		return this.name ;
+	
+	
+	public Dog() {
+		setName("イヌ");
+		setHp(2000);
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public int getHp() {
-		return this.hp;
-	}
-	
-	public void setHp(int hp) {
-		if (hp < 0) {
-			this.hp = 0;
-			Main.put(this.name + "は倒れた！");}
-		else{
-			this.hp = hp;
-		}
-	}
-	@Override
 	public void attack(DemonIsland demon) {
-		int random =new Random().nextInt(200)+400;//100-300
-		Main.put(this.name + "はすねをかじった！");
-		//スペースきー
-		Main.put("【" + random  +"のダメージ！】");
-		//てきのダメージをかく
+		int random =new Random().nextInt(300,501);
+		Main.put(getName() + "はすねをかじった！");
+		new Scanner(System.in).nextLine();
+		System.out.printf("【　%sは、%sに　%d　のダメージを与えた！　】\n",getName(),demon.getName(),random );
+		demon.setHp(demon.getHp() - random);
+		new Scanner(System.in).nextLine();
+		
 	}
 
 }

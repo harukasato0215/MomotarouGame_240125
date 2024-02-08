@@ -1,6 +1,7 @@
 package character.party;
 
 import java.util.Random;
+import java.util.Scanner;
 
 import character.demon.DemonIsland;
 import item.Kibidango;
@@ -8,41 +9,30 @@ import item.Sword;
 import main.Main;
 
 public class PeachBoy extends PartyCharacter {
-	private String name;
-	private int hp = 3000;
+	
 	public Sword sword;
 	public Kibidango kibidango;
 	
-	
+	public PeachBoy() {
+		setHp(3000);
+	}
 	
 	public String getName() {
-		return this.name + "太郎";
+		return super.getName() + "太郎";
 	}
 	
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public int getHp() {
-		return this.hp;
-	}
-	
-	public void setHp(int hp) {
-		if (hp < 0) {
-			this.hp = 0;
-			Main.put(this.name + "は倒れた！");}
-		else{
-			this.hp = hp;
-		}
-	}
+
 
 
 	public void attack(DemonIsland demon) {
-		int random =new Random().nextInt(200)+600;//100-300
-		Main.put(this.name + "は剣で攻撃した！");
-		//スペースきー
-		Main.put("【"+ random  +"のダメージ！】");
-		//てきのダメージをかく
+		int random =new Random().nextInt(600,801);//100-300
+		Main.put(getName() + "は剣で攻撃した！");
+		new Scanner(System.in).nextLine();
+		System.out.printf("【　%sは、%sに　%d　のダメージを与えた！　】\n",getName(),demon.getName(),random );
+		demon.setHp(demon.getHp() - random);
+		new Scanner(System.in).nextLine();
+		
 		
 	}
 
