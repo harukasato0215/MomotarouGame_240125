@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import character.BattleCharacter;
 import character.demon.DemonIsland;
-import main.Main;
 
 public abstract class PartyCharacter extends BattleCharacter {
 
@@ -20,7 +19,6 @@ public abstract class PartyCharacter extends BattleCharacter {
 	//きびだんごでの回復
 	public void heal() {
 		int random =new Random().nextInt(100,301);//100-300
-		Main.put(getName() + "はきびだんごを食べて " + random + " 回復した" );
 		System.out.printf("【%sは、　%d　回復した！ 】\n",getName(),random);
 		setHp(getHp() + random) ;
 		new Scanner(System.in).nextLine();

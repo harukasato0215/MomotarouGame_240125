@@ -22,7 +22,9 @@ public abstract class Character  {
 		if (hp < 0) {
 			this.hp = 0;
 			Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+			Main.put("");
 			Main.put(this.name + "は倒れた！");
+			Main.put("");
 			Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 		}
 		

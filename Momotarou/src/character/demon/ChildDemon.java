@@ -18,8 +18,8 @@ public class ChildDemon extends DemonIsland{
 		System.out.printf("%sは、%sに石を投げてきた！\n",getName(),p.getName());
 		new Scanner(System.in).nextLine();
 		int damage = new Random().nextInt(100,451);
-		p.setHp(getHp() - damage);
-		System.out.printf("【　%sは、　%d　のダメージを受けた！　】",p.getName(),damage );
+		System.out.printf("【　%sは、　%d　のダメージを受けた！　】\n",p.getName(),damage );
+		p.setHp(p.getHp() - damage);
 		new Scanner(System.in).nextLine();
 	}
 

@@ -1,13 +1,13 @@
 package main;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import character.OldMan;
 import character.OldWoman;
 import character.demon.ChildDemon;
+import character.demon.DemonIsland;
 import character.party.Bird;
 import character.party.Dog;
 import character.party.Monkey;
@@ -23,11 +23,16 @@ public class Main {
 		OldMan man = new OldMan();
 		OldWoman woman = new OldWoman();
 		ArrayList<PartyCharacter> partyMember = new ArrayList<PartyCharacter>();
+		ArrayList<DemonIsland> demons =new ArrayList<DemonIsland>();
 		partyMember.add(boy);
 
 		put("【ももたろう】");
 		scan.nextLine();
-		prologue();
+		
+		put("昔々、ある老夫婦のおうちにとても大きなモモが届きました。");
+		scan.nextLine();
+		put("早速割ってみると中には元気な赤ちゃんがいました。");
+		scan.nextLine();
 
 		while (true) {
 			put("あなたの名前は？>>");
@@ -35,16 +40,16 @@ public class Main {
 			boy.setName(name);
 
 			put(boy.getName() + "ですね？");
-			put("1:はい　2:いいえ");
+			ans();
 			int select = scan.nextInt();
 			if (select == 1) {
 				break;
 			}
 		}
-		
+
 		put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 		put("");
-		System.out.printf("名前:　%S　[㏋:　%d]　が生まれた！\n ",boy.getName(),boy.getHp());
+		System.out.printf("名前:　%S　[㏋:　%d]　が生まれた！\n ", boy.getName(), boy.getHp());
 		put("");
 		put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 		put("");
@@ -97,9 +102,9 @@ public class Main {
 			put("歩いていると道が分かれた。どの道を通る？");
 			put("【　1.右側の道　2.真ん中の道　3.左側の道　】>>");
 			int adventureSelect = scan.nextInt();//道の選択
-			int randomAdventure = new Random().nextInt(3);//どこを選んでもランダム
-			switch (randomAdventure) {
-			case 0://仲間ゲット
+			int randomAdventure = new Random().nextInt(0, 101);//どこを選んでもランダム
+			if (randomAdventure >= 50) {
+				//仲間ゲット
 				put("道を歩いていると" + animals[animalCount].getName() + "が現れた！");
 				scan.nextLine();
 				put(animals[animalCount].getName() + "「桃太郎さん、どこへ行くのですか？」");
@@ -110,7 +115,7 @@ public class Main {
 						+ "おともしますよ」");
 				scan.nextLine();
 				put(animals[animalCount].getName() + "にきびだんごをあげる？");
-				put("1:はい　2:いいえ");
+				ans();
 				int select = scan.nextInt();
 				if (select == 1) {//仲間になったら
 					put(animals[animalCount].getName() + "にきびだんごをあげた！");
@@ -118,11 +123,11 @@ public class Main {
 					put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 					put("");
 					System.out.printf("名前:　%S　[㏋:　%d]　が仲間になった！\n ",
-							animals[animalCount].getName(),animals[animalCount].getHp());
+							animals[animalCount].getName(), animals[animalCount].getHp());
 					put("");
 					put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 					put("");
-					
+
 					//仲間になったコード
 					partyMember.add(animals[animalCount]);
 				} else {//仲間スキップ
@@ -130,114 +135,19 @@ public class Main {
 
 				}
 				animalCount++;
-				break;
 
-			case 1://敵と戦う
+			} else if (randomAdventure < 25) {
+
+				//敵と戦う
 				ChildDemon child = new ChildDemon();
-				System.out.printf("道を歩いていると、 %s[HP: %d ] が現れた！\n", child.getName(), child.getHp());
+				demons.add(child);
+				
+				DemonBattle.battle( boy , k , demons , partyMember);
+				
+				demons.remove(0);
 
-				scan.nextLine();
-				boolean isRun = false;
-				while (child.getHp() > 0 && !isRun) {
-					if (boy.getHp() <= 0) {
-						gameOver();
-					} else {
-						put("どうする？");
-						put("【　1.戦う　2.回復する　3.逃げる　4.仲間の状態を見る　】>>");
-						int battleSelect = scan.nextInt();
-						switch (battleSelect) {
-						case 1://戦う
-							for (int i = 0; i < partyMember.size(); i++) {
-								if (child.getHp() > 0) {
-									//桃太郎サイド攻撃
-									int partyRandom = new Random().nextInt(2);
-									if (partyRandom == 0) {
-										partyMember.get(i).attack(child);
-									} else {
-										partyMember.get(i).noAttack();
-									}
-								} else {
-									break;
-								}
-							}
-							if (child.getHp() > 0) {
-								put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
-								put("");
-								put(child.getName() + "の㏋は　" + child.getHp() + "　になった\n");
-								put("");
-								put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
-								new Scanner(System.in).nextLine();
-							} else {
-								break;
-							}
-
-							//小鬼サイド攻撃
-							for (int i = 0; i < partyMember.size(); i++) {
-								scan.nextLine();
-								int childRandom = new Random().nextInt(2);
-								if (childRandom == 0) {
-									child.attack(partyMember.get(i));
-								} else {
-									child.noAttack();
-								}
-							}
-
-							break;
-						//ステータス表示
-
-						case 2://回復
-							System.out.printf("【　誰を回復する？(きびだんご残り　%d個　】>>\n", k.getNum());
-							//↓ファイル読み込み？とかで表示できるならしたい
-
-							for (int i = 0; i < partyMember.size(); i++) {
-								put((i + 1) + ": " + partyMember.get(i).getName());//いる人表示させたい
-
-							}
-							//回復する人の選択
-							int healSelect = scan.nextInt();
-							switch (healSelect) {
-							case 1:
-								partyMember.get(0).heal();
-								break;
-							case 2:
-								partyMember.get(1).heal();
-								break;
-							case 3:
-								partyMember.get(2).heal();
-								break;
-							case 4:
-								partyMember.get(3).heal();
-								break;
-
-							}
-						case 3://逃げる
-							put("本当に逃げる？>>");
-							put("1:はい　2:いいえ");
-							int ans = scan.nextInt();
-							if (ans == 1) {
-								boy.run();
-								isRun = true;
-							}
-							break;
-						case 4://状態
-							put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
-							for (int i = 0; i < partyMember.size(); i++) {
-								put((i + 1) + ": " + partyMember.get(i).getName() + "　HP:　 "
-										+ partyMember.get(i).getHp());//いる人表示させたい
-							}
-							put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
-							new Scanner(System.in).nextLine();
-							break;
-
-						}
-
-					}
-				}
-				isRun = false;
-
-				break;
-
-			case 2://寝る
+			} else {
+				//寝る〇
 				put("道を歩いているといつの間にか夜になった。");
 				scan.nextLine();
 				scan.nextLine();
@@ -246,34 +156,41 @@ public class Main {
 				//（いるキャラクター全てヒール）
 				for (int i = 0; i < partyMember.size(); i++) {
 					partyMember.get(i).sleepHeal();
-					
-					
-				} 
-				break;
+
+				}
 
 			}
-
 		}
+
 		//鬼ヶ島到着
 		blank();
+		System.out.printf("%Sたちは、船に乗って大海原を渡ることにします。", boy.getName());
+		put("しばらくすると島が見えてきました。\n その島は荒々しく、岩山がそびえ立ち、黒い雲が島を覆っていました。");
+		boy.talk("鬼ヶ島だ！鬼を倒して、村のみんなを守るぞ！");
+		put("そして、桃太郎と仲間たちは決意を胸に、鬼ヶ島へと足を踏み入れました。");
+		blank();
 
+		put("鬼ヶ島に挑戦しますか？");
+		ans();
+		int ans =new Scanner(System.in).nextInt();
+		if(ans ==2) {
+			goHome(boy);
+		}else if(ans ==1) {
+			
+			
+		}
+		
 	}
 
 	public static void put(String str) {
 		System.out.println(str);
 	}
 
-	public static void prologue() {
-		Scanner scan = new Scanner(System.in);
-		put("昔々、ある老夫婦のおうちにとても大きなモモが届きました。");
-		scan.nextLine();
-		put("早速割ってみると中には元気な赤ちゃんがいました。");
-		scan.nextLine();
-
-	}
-
 	public static void blank() {
 		put("・・・");
+	}
+	public static void ans() {
+		put("1:はい　2:いいえ");
 	}
 
 	public static void gameOver() {
@@ -282,91 +199,32 @@ public class Main {
 		put("【　GAME　OVER　】");
 		scan.nextLine();
 		put("もう一度遊ぶ？");
-		put("1:はい　2:いいえ");
-
-	}
-
-	public static void battle(PeachBoy boy, List<PartyCharacter> partyMember) {
-		Scanner scan = new Scanner(System.in);
-
-		ChildDemon child = new ChildDemon();
-		put("道を歩いていると" + child.getName() + "が現れた！");
-		scan.nextLine();
-
-		while (child.getHp() > 0) {
-			if (boy.getHp() <= 0) {
-				gameOver();
-			} else {
-				put("どうする？");
-				put("【　1.戦う　2.回復する　3.逃げる　4.仲間の状態を見る　】>>");
-				int battleSelect = scan.nextInt();
-				switch (battleSelect) {
-				case 1://戦う
-					for (int i = 0; i < partyMember.size(); i++) {
-
-						//桃太郎サイド攻撃
-						int partyRandom = new Random().nextInt(2);
-						if (partyRandom == 0) {
-							partyMember.get(i).attack(child);
-						} else {
-							partyMember.get(i).noAttack();
-						}
-					}
-					put(child.getName() + "の㏋は" + child.getHp() + "になった");
-
-					//小鬼サイド攻撃
-					for (int i = 0; i < partyMember.size(); i++) {
-
-						int childRandom = new Random().nextInt(2);
-						if (childRandom == 0) {
-							child.attack(partyMember.get(i));
-						} else {
-							child.noAttack();
-						}
-					}
-					//ステータス表示
-
-					break;
-
-				case 2://回復
-					System.out.printf("誰を回復する？きびだんご残り%d個", boy.kibidango.getNum());
-					//↓ファイル読み込み？とかで表示できるならしたい
-					System.out.print("【　");
-					for (int i = 0; i < partyMember.size(); i++) {
-						System.out.print((partyMember.size() + 1) + partyMember.get(i).getName());//いる人表示させたい
-					}
-					System.out.print("　】");
-
-					//回復する人の選択
-					int healSelect = scan.nextInt();
-					switch (healSelect) {
-					case 1:
-						partyMember.get(0).heal();
-						//						put("は" + partyMember.get(0).getHp());
-						//						k.setNum(setNum - 1);
-						break;
-					case 2:
-						partyMember.get(1).heal();
-						break;
-					case 3:
-						partyMember.get(2).heal();
-						break;
-					case 4:
-						partyMember.get(3).heal();
-						break;
-
-					}
-
-					break;
-				case 3://逃げる
-					boy.run();
-					break;
-
-				case 4://状態
-					break;
-
-				}
+		ans();
+		int gameSelect =new Scanner(System.in).nextInt();
+		if(gameSelect == 2) {
+			
+			put("----【おしまい】----");
+			put("また遊んでね♪");
+			return;
 			}
-		}
+
 	}
+	
+	public static void goHome(PeachBoy boy) {
+		Scanner scan = new Scanner(System.in);
+		System.out.printf("%sたちは、鬼ヶ島に行くのが怖くなりおうちに帰った。", boy.getName());
+		put("時々村にくる鬼におびえながら暮らしていくのであった。");
+		put("----【おしまい】----");
+		scan.nextLine();
+		put("もう一度遊ぶ？");
+		ans();
+		int gameSelect =new Scanner(System.in).nextInt();
+		if(gameSelect == 2) {
+			put("また遊んでね♪");
+			
+			return;
+			}
+	}
+
+	
 }

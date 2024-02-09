@@ -20,7 +20,7 @@ public class MediumDemon  extends DemonIsland{
 		Main.put(getName() + "は石を投げてきた！");
 		new Scanner(System.in).nextLine();
 		int damage = new Random().nextInt(200,701);
-		p.setHp(getHp() - damage);
+		p.setHp(p.getHp() - damage);
 		Main.put("【" + getName() + "は" + damage +"のダメージ！】");
 	
 	}
