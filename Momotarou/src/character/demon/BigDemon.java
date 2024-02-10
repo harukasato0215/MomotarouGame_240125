@@ -26,7 +26,14 @@ public class BigDemon extends DemonIsland {
 
 		int heal = new Random().nextInt(300,901 );
 		setHp(getHp() + heal);
+		Main.put("_________________ ＋_________________");
+		Main.put("");
+		Main.put("");
 		Main.put(getName() + "は雷をあびて " + heal + " 回復した！");
+		Main.put(getName() +"のHPは" + getHp() +"になった");
+		Main.put("");
+		Main.put("");
+		Main.put("_________________ ＋ _________________");
 	}
 
 }

@@ -19,11 +19,13 @@ public abstract class Character  {
 	}
 	
 	public void setHp(int hp) {
-		if (hp < 0) {
+		if (hp <= 0) {
 			this.hp = 0;
 			Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 			Main.put("");
+			Main.put("");
 			Main.put(this.name + "は倒れた！");
+			Main.put("");
 			Main.put("");
 			Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 		}

@@ -31,12 +31,14 @@ public class MakeParty {
 			
 			scan.nextLine();
 			k.setNum(k.getNum() - 1);
-			Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+			Main.put("✦••┈┈┈••┈┈┈••┈┈┈••✦★✦••┈┈┈••┈┈┈••┈┈┈••✦");
+			Main.put("");
 			Main.put("");
 			System.out.printf("名前:　%S　[㏋:　%d]　が仲間になった！\n ",
 					animals[animalCount].getName(), animals[animalCount].getHp());
 			Main.put("");
-			Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+			Main.put("");
+			Main.put("✦••┈┈┈••┈┈┈••┈┈┈••✦★✦••┈┈┈••┈┈┈••┈┈┈••✦");
 			Main.put("");
 			
 			//仲間になったコード

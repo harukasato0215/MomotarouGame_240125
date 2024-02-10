@@ -19,7 +19,14 @@ public abstract  class DemonIsland extends BattleCharacter {
 		
 		int heal = new Random().nextInt(100,200);
 		setHp(getHp() + heal);
+		Main.put("_________________ ＋_________________");
+		Main.put("");
+		Main.put("");
 		Main.put(getName() + "は木の実を食べて " +heal +" 回復した！");
+		Main.put(getName() +"のHPは" + getHp() +"になった");
+		Main.put("");
+		Main.put("");
+		Main.put("_________________ ＋ _________________");
 	}
 
 

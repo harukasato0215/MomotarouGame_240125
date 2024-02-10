@@ -36,11 +36,11 @@ public class PeachBoy extends PartyCharacter {
 		
 	}
 	public static void beBorn(String name,int hp) {
-		Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+		Main.put("════════════════════ ⋆★⋆ ════════════════════");
 		Main.put("");
 		System.out.printf("名前:　%S　[㏋:　%d]　が生まれた！\n ", name, hp);
 		Main.put("");
-		Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+		Main.put("════════════════════ ⋆★⋆ ════════════════════");
 		Main.put("");
 	}
 

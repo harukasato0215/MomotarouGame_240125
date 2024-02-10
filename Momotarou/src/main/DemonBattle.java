@@ -56,6 +56,7 @@ public class DemonBattle {
 						Main.put("もうきびだんごは残っていない…");
 					}
 
+					DemonAttack(demons, partyMember);
 					break;
 
 				case 3://逃げる
@@ -99,7 +100,7 @@ public class DemonBattle {
 
 	public static void PartyAttack(ArrayList<DemonIsland> demons, ArrayList<PartyCharacter> partyMember) {
 		for (int i = 0; i < partyMember.size(); i++) {
-			
+
 			for (DemonIsland d : demons) {
 				if (d.getHp() > 0) {
 					//桃太郎サイド攻撃
@@ -115,46 +116,55 @@ public class DemonBattle {
 					break;
 				}
 			}
-			
+
 		}
-		
-		
-		
+
 		//桃太郎サイド攻撃終了したときに出る鬼の最終HP
-		
+
 		for (DemonIsland d : demons) {
 			if (d.getHp() > 0) {
-				Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+				Main.put("_________________ ＋_________________");
+				Main.put("");
 				Main.put("");
 				Main.put(d.getName() + "の㏋は　" + d.getHp() + "　になった\n");
 				Main.put("");
-				Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+				Main.put("");
+				Main.put("_________________ ＋ _________________");
 				new Scanner(System.in).nextLine();
 			} else {
 				break;
 			}
-			
+
 		}
 
 	}
 
 	public static void DemonAttack(ArrayList<DemonIsland> demons, ArrayList<PartyCharacter> partyMember) {
-		//小鬼サイド攻撃
+		//鬼サイド攻撃
 		for (DemonIsland d : demons) {
-			for (PartyCharacter p : partyMember) {
+			if (d.getHp() < 0) {
+				break;
+			} else {
+				int healRandom = new Random().nextInt(100);
+				if (healRandom > 31) {
+					d.heal();
+				} else {
+					for (PartyCharacter p : partyMember) {
 
-				if (p.getHp() > 0) {
-					//小鬼サイド攻撃
-					if (d.getHp() > 0) {
-						int partyRandom = new Random().nextInt(2);
-						if (partyRandom == 0) {
-							d.attack(p);
+						if (p.getHp() > 0) {
+							//鬼サイド攻撃
+							if (d.getHp() > 0) {
+								int partyRandom = new Random().nextInt(2);
+								if (partyRandom == 0) {
+									d.attack(p);
+								} else {
+									d.noAttack();
+								}
+							}
 						} else {
-							d.noAttack();
+							break;
 						}
 					}
-				} else {
-					break;
 				}
 			}
 		}

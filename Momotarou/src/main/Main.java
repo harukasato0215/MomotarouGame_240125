@@ -26,7 +26,7 @@ public class Main {
 		OldWoman woman = new OldWoman();
 		ArrayList<PartyCharacter> partyMember = new ArrayList<PartyCharacter>();
 		ArrayList<DemonIsland> demons = new ArrayList<DemonIsland>();
-		partyMember.add(boy);
+		
 
 		put("【ももたろう】");
 		scan.nextLine();
@@ -50,6 +50,7 @@ public class Main {
 		}
 		//桃太郎誕生！名前とHP
 		PeachBoy.beBorn(boy.getName(), boy.getHp());
+		partyMember.add(boy);
 
 		put("おばあさんとおじいさんは" + boy.getName() + "を大切に育ててくれました。");
 		scan.nextLine();
@@ -69,7 +70,7 @@ public class Main {
 		put("【　きびだんご×10　をゲットした！　】");
 		//きびだんごをもった桃太郎
 		Kibidango k = new Kibidango();
-		k.setNum(2);
+		k.setNum(10);
 		boy.kibidango = k;
 
 		scan.nextLine();
@@ -160,6 +161,20 @@ public class Main {
 		demons.add(bigDemon);
 		DemonBattle.battle(boy, k, demons, partyMember);
 		demons.remove(0);
+		
+		
+		
+		//倒した！
+		System.out.printf("そして、長い戦いの末、%sたちの勇気と結束が勝利をもたらしました。\n"
+				+ "ボス鬼は倒れ、小さな鬼たちは降伏しました。\n"
+				+ "%sたちは喜びに満ちた笑顔で村に帰り、村人たちと幸せに暮らしました。\n"+ boy.getName(),boy.getName());
+		
+		put("-------------✩--------------");
+		put("");
+		put("　　　 【GAME　CLEAR】　　　");
+		put("　　　めでたしめでたし　　　");
+		put("");
+		put("-------------✩--------------");
 	}
 
 	public static void put(String str) {
