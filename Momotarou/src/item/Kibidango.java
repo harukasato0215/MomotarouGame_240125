@@ -1,20 +1,17 @@
 package item;
 
-import main.Main;
+public class Kibidango extends Item{
 
-public class Kibidango {
-	String name = "きびだんご";
-	int heal;
-	private int num =0;//きびだんごの個数
+	private int num ;//きびだんごの個数
 	
+	public void Kibidango() {
+		String name="きびだんご";
+		int num =0;
+	}
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
-		if(num <= 0) {
-			Main.put("もうきびだんごは残っていない…");
-		}else {
-			this.num = num;
-		}
+		this.num = num;
 	}
 }

@@ -35,32 +35,39 @@ public class DemonBattle {
 				case 1://戦う
 
 					PartyAttack(demons, partyMember);
-					DemonAttack(demons,partyMember);
+					DemonAttack(demons, partyMember);
 
-					
 					//ステータス表示
 					break;
-					
+
 				case 2://回復
-					System.out.printf("【　誰を回復する？(きびだんご残り　%d個　】>>\n", k.getNum());
-					//↓ファイル読み込み？とかで表示できるならしたい
+					if (k.getNum() > 0) {
+						System.out.printf("【　誰を回復する？(きびだんご残り　%d個　】>>\n", k.getNum());
+						//↓ファイル読み込み？とかで表示できるならしたい
 
-					for (int i = 0; i < partyMember.size(); i++) {
-						Main.put((i + 1) + ": " + partyMember.get(i).getName());//いる人表示させたい
+						for (int i = 0; i < partyMember.size(); i++) {
+							Main.put((i + 1) + ": " + partyMember.get(i).getName());//いる人表示させたい
+						}
 
+						int healSelect = scan.nextInt();
+						partyMember.get(healSelect - 1).heal();
+						k.setNum(k.getNum() - 1);
+					} else {
+						Main.put("もうきびだんごは残っていない…");
 					}
-					//回復する人の選択
-					int healSelect = scan.nextInt();
-					partyMember.get(healSelect).heal();
 
 					break;
 
 				case 3://逃げる
-					run(false,boy);
-					
+					Main.put("本当に逃げる？>>");
+					Main.ans();
+					int ans = scan.nextInt();
+					if (ans == 1) {
+						boy.run();
+						isRun = true;
+					}
 					break;
-					
-					
+
 				case 4://状態
 					Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
 					Main.put("");
@@ -89,10 +96,10 @@ public class DemonBattle {
 		System.out.print("が現れた！\n");
 
 	}
-	
 
 	public static void PartyAttack(ArrayList<DemonIsland> demons, ArrayList<PartyCharacter> partyMember) {
 		for (int i = 0; i < partyMember.size(); i++) {
+			
 			for (DemonIsland d : demons) {
 				if (d.getHp() > 0) {
 					//桃太郎サイド攻撃
@@ -108,8 +115,13 @@ public class DemonBattle {
 					break;
 				}
 			}
-			break;
+			
 		}
+		
+		
+		
+		//桃太郎サイド攻撃終了したときに出る鬼の最終HP
+		
 		for (DemonIsland d : demons) {
 			if (d.getHp() > 0) {
 				Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
@@ -121,17 +133,15 @@ public class DemonBattle {
 			} else {
 				break;
 			}
-			break;
+			
 		}
 
 	}
-	
-	
 
 	public static void DemonAttack(ArrayList<DemonIsland> demons, ArrayList<PartyCharacter> partyMember) {
 		//小鬼サイド攻撃
 		for (DemonIsland d : demons) {
-			for (PartyCharacter p:partyMember) {
+			for (PartyCharacter p : partyMember) {
 
 				if (p.getHp() > 0) {
 					//小鬼サイド攻撃
@@ -149,14 +159,5 @@ public class DemonBattle {
 			}
 		}
 	}
-	public static void run(boolean isRun,PeachBoy boy) {
-		Scanner scan = new Scanner(System.in);
-		Main.put("本当に逃げる？>>");
-		Main.ans();
-		int ans = scan.nextInt();
-		if (ans == 1) {
-			boy.run();
-			isRun = true;
-		}
-	}
+
 }

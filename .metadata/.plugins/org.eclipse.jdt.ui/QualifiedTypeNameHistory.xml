@@ -9,5 +9,8 @@
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="character.demon.DemonIsland"/>
     <fullyQualifiedTypeName name="character.party.PeachBoy"/>
+    <fullyQualifiedTypeName name="character.demon.MediumDemon"/>
+    <fullyQualifiedTypeName name="item.Item"/>
     <fullyQualifiedTypeName name="item.Kibidango"/>
+    <fullyQualifiedTypeName name="character.demon.BigDemon"/>
 </qualifiedTypeNameHistroy>

@@ -335,3 +335,54 @@ public class Battle {
 //	}
 //}
 //isRun = false;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//public static void DemonAttack(ArrayList<DemonIsland> demons, ArrayList<PartyCharacter> partyMember) {
+//	//小鬼サイド攻撃
+//	for (DemonIsland d : demons) {
+//		for (PartyCharacter p : partyMember) {
+//
+//			if (p.getHp() > 0) {
+//				//小鬼サイド攻撃
+//				if (d.getHp() > 0) {
+//					int partyRandom = new Random().nextInt(2);
+//					if (partyRandom == 0) {
+//						d.attack(p);
+//					} else {
+//						d.noAttack();
+//					}
+//				}
+//			} else {
+//				break;
+//			}
+//		}
+//	}
