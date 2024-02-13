@@ -21,8 +21,8 @@ public class MediumDemon  extends DemonIsland{
 		new Scanner(System.in).nextLine();
 		int damage = new Random().nextInt(200,701);
 		p.setHp(p.getHp() - damage);
-		Main.put("【" + getName() + "は" + damage +"のダメージ！】");
-	
+		System.out.printf("【　%sは、　%d　のダメージを受けた！　】\n",p.getName(),damage );
+		new Scanner(System.in).nextLine();
 	}
 
 }

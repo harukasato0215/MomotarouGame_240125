@@ -17,9 +17,9 @@ public class BigDemon extends DemonIsland {
 		Main.put(getName() + "は雷ビームをだしてきた！");
 		new Scanner(System.in).nextLine();
 		int damage = new Random().nextInt(300, 901);
-		p.setHp(getHp() - damage);
-		Main.put("【" + getName() + "は" + damage + "のダメージ！】");
-
+		p.setHp(p.getHp() - damage);
+		System.out.printf("【　%sは、　%d　のダメージを受けた！　】\n",p.getName(),damage );
+		new Scanner(System.in).nextLine();
 	}
 
 	public void heal() {

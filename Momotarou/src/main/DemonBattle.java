@@ -1,20 +1,31 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import character.demon.ChildDemon;
 import character.demon.DemonIsland;
 import character.party.PartyCharacter;
 import character.party.PeachBoy;
 import item.Kibidango;
 
 public class DemonBattle {
+	String partyPath = "Party.csv";
+	ArrayList<String> party = new ArrayList<>();
 
 	public static void battle(PeachBoy boy, Kibidango k, ArrayList<DemonIsland> demons,
-			ArrayList<PartyCharacter> partyMember) {
+			ArrayList<PartyCharacter> partyMember,ChildDemon child) {
 		Scanner scan = new Scanner(System.in);
-
+		String partyPath = "Party.csv";
+		ArrayList<String> party = new ArrayList<>();
 		appear(demons);
 
 		scan.nextLine();
@@ -36,22 +47,71 @@ public class DemonBattle {
 
 					PartyAttack(demons, partyMember);
 					DemonAttack(demons, partyMember);
+					
+					//回復した文を書き込み
+					try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(partyPath), "UTF-8"))) {
+						for (int i = 0; i < partyMember.size(); i++) {
+							bw.write((i + 1) + "：" + partyMember.get(i).getName() +
+									",　HP：" + partyMember.get(i).getHp() + "\n");
+						}
+
+					} catch (
+
+					IOException e) {
+						e.printStackTrace();
+
+					}
 
 					//ステータス表示
 					break;
 
 				case 2://回復
-					if (k.getNum() > 0) {
-						System.out.printf("【　誰を回復する？(きびだんご残り　%d個　】>>\n", k.getNum());
-						//↓ファイル読み込み？とかで表示できるならしたい
-
+					
+					try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(partyPath), "UTF-8"))) {
 						for (int i = 0; i < partyMember.size(); i++) {
-							Main.put((i + 1) + ": " + partyMember.get(i).getName());//いる人表示させたい
+							bw.write((i + 1) + "：" + partyMember.get(i).getName() +
+									",　HP：" + partyMember.get(i).getHp() + "\n");
 						}
 
+					} catch (
+
+					IOException e) {
+						e.printStackTrace();
+
+					}
+					
+					if (k.getNum() > 0) {
+						System.out.printf("【　誰を回復する？(きびだんご残り　%d個　】>>\n", k.getNum());
+
+						//メンバー表示
+						Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+						Main.put("");
+						try (BufferedReader br = new BufferedReader(
+								new InputStreamReader(new FileInputStream(partyPath), "UTF-8"))) {
+							String line = null;
+							while ((line = br.readLine()) != null) {
+								party.add(line);
+								
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						for (String s : party) {
+							System.out.println(s);
+						}
+
+						Main.put("");
+						Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+						
+						//リスト削除
+						party.clear();
 						int healSelect = scan.nextInt();
 						partyMember.get(healSelect - 1).heal();
 						k.setNum(k.getNum() - 1);
+						
+						
+						
+						
 					} else {
 						Main.put("もうきびだんごは残っていない…");
 					}
@@ -63,21 +123,51 @@ public class DemonBattle {
 					Main.put("本当に逃げる？>>");
 					Main.ans();
 					int ans = scan.nextInt();
-					if (ans == 1) {
+					
+					if (ans == 1 ) {
+						if(demons.get(0) == child) {
 						boy.run();
 						isRun = true;
+						}
+						
 					}
 					break;
 
 				case 4://状態
-					Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
-					Main.put("");
-					for (int i = 0; i < partyMember.size(); i++) {
-						Main.put((i + 1) + ": " + partyMember.get(i).getName() + "　HP:　 "
-								+ partyMember.get(i).getHp());//いる人表示させたい
+					
+					try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(partyPath), "UTF-8"))) {
+						for (int i = 0; i < partyMember.size(); i++) {
+							bw.write((i + 1) + "：" + partyMember.get(i).getName() +
+									",　HP：" + partyMember.get(i).getHp() + "\n");
+						}
+
+					} catch (
+
+					IOException e) {
+						e.printStackTrace();
+
 					}
+					
+					Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+					Main.put("");
+					try (BufferedReader br = new BufferedReader(
+							new InputStreamReader(new FileInputStream(partyPath), "UTF-8"))) {
+						String line = null;
+						while ((line = br.readLine()) != null) {
+							party.add(line);
+							
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					for (String s : party) {
+						System.out.println(s);
+					}
+
+				
 					Main.put("");
 					Main.put("＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋＋");
+					party.clear();
 					new Scanner(System.in).nextLine();
 					break;
 
@@ -147,7 +237,9 @@ public class DemonBattle {
 			} else {
 				int healRandom = new Random().nextInt(100);
 				if (healRandom > 31) {
+					if (d.getHp() > 0) {
 					d.heal();
+					}
 				} else {
 					for (PartyCharacter p : partyMember) {
 
@@ -167,6 +259,7 @@ public class DemonBattle {
 					}
 				}
 			}
+
 		}
 	}
 

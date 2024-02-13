@@ -1,5 +1,12 @@
 package main;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -20,21 +27,34 @@ import item.Sword;
 
 public class Main {
 	public static void main(String[] args) {
+		
 		Scanner scan = new Scanner(System.in);
 		PeachBoy boy = new PeachBoy();
 		OldMan man = new OldMan();
 		OldWoman woman = new OldWoman();
-		ArrayList<PartyCharacter> partyMember = new ArrayList<PartyCharacter>();
+		ArrayList<PartyCharacter> partyMember = new ArrayList<>();
 		ArrayList<DemonIsland> demons = new ArrayList<DemonIsland>();
-		
 
 		put("【ももたろう】");
 		scan.nextLine();
 
-		put("昔々、ある老夫婦のおうちにとても大きなモモが届きました。");
-		scan.nextLine();
-		put("早速割ってみると中には元気な赤ちゃんがいました。");
-		scan.nextLine();
+		ArrayList<String> list = new ArrayList<String>();
+		//冒頭　ファイル読み込む
+		String path = "1.csv";
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path), "UTF-8"))) {
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				list.add(line);
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		for (String s : list) {
+			put(s);
+			scan.nextLine();
+		}
 
 		while (true) {
 			put("あなたの名前は？>>");
@@ -52,32 +72,68 @@ public class Main {
 		PeachBoy.beBorn(boy.getName(), boy.getHp());
 		partyMember.add(boy);
 
+		String partyPath = "Party.csv";
+
+		//ファイル書き込み
+		try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(partyPath), "UTF-8"))) {
+			for (int i = 0; i < partyMember.size(); i++) {
+				bw.write((i + 1) + "：" + partyMember.get(i).getName() +
+						",　HP：" + partyMember.get(i).getHp() + "\n");
+			}
+
+		} catch (
+
+		IOException e) {
+			e.printStackTrace();
+
+		}
+
 		put("おばあさんとおじいさんは" + boy.getName() + "を大切に育ててくれました。");
 		scan.nextLine();
 		blank();
-		scan.nextLine();
-		put("そんなある日、おうちにボロボロになった村人たちがやってきました。");
-		scan.nextLine();
-		put("村人「たくさんの鬼が来て暴れているんだ！助けて；；」");
-		scan.nextLine();
-		boy.talk("「ぼく、鬼ヶ島へ行って、わるい鬼を退治します」");
 
-		scan.nextLine();
-		woman.talk("「それなら、きびだんごを用意してあげよう！」");
-		scan.nextLine();
-		woman.talk("「これを食べると体力が回復するし、動物と仲良くなれるよ！」");
-		scan.nextLine();
-		put("【　きびだんご×10　をゲットした！　】");
-		//きびだんごをもった桃太郎
+		//ファイル読み込み
+		ArrayList<String[]> list2 = new ArrayList<>();
+		String path2 = "2.csv";
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path2), "UTF-8"))) {
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				list2.add(line.split(","));
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		for (String[] string : list2) {
+
+			switch (string[0]) {
+			case "no":
+				put(string[1]);
+				scan.nextLine();
+				break;
+
+			case "boy":
+				boy.talk(string[1]);
+				scan.nextLine();
+				break;
+			case "man":
+				man.talk(string[1]);
+				scan.nextLine();
+				break;
+			case "woman":
+				woman.talk(string[1]);
+				scan.nextLine();
+				break;
+			}
+		}
+
+		//きびだんごをもった
 		Kibidango k = new Kibidango();
 		k.setNum(10);
 		boy.kibidango = k;
 
-		scan.nextLine();
-		man.talk("「この剣も持っていきなさい！これで鬼と戦うんだ！」");
-		scan.nextLine();
-		put("【　剣　をゲットした！　】");
-		//剣をもった桃太郎
+		//剣をもった
 		Sword s = new Sword();
 		boy.sword = s;
 		scan.nextLine();
@@ -87,12 +143,13 @@ public class Main {
 		blank();
 		scan.nextLine();
 
-		//仲間に食われられるキャラクターを作成
+		//仲間になるキャラクターを作成
 		PartyCharacter monkey = new Monkey();
 		PartyCharacter dog = new Dog();
 		PartyCharacter bird = new Bird();
 		PartyCharacter[] animals = { monkey, dog, bird };
 		int animalCount = 0;
+		ChildDemon child = new ChildDemon();
 
 		//冒険開始
 		//キジが出たら終了
@@ -102,20 +159,21 @@ public class Main {
 			int adventureSelect = scan.nextInt();//道の選択
 			int randomAdventure = new Random().nextInt(0, 101);//どこを選んでもランダム
 
+			//50％の確率で仲間ゲットがでる
 			if (randomAdventure >= 50) {
 
 				//仲間ゲット
-				MakeParty.negotiate(partyMember, animals,animalCount, boy, k);
+				MakeParty.negotiate(partyMember, animals, animalCount, boy, k);
 				animalCount++;
 				scan.nextLine();
 
 			} else if (randomAdventure < 25) {
 
 				//敵と戦う
-				ChildDemon child = new ChildDemon();
+				
 				demons.add(child);
 
-				DemonBattle.battle(boy, k, demons, partyMember);
+				DemonBattle.battle(boy, k, demons, partyMember,child);
 
 				demons.remove(0);
 
@@ -123,15 +181,18 @@ public class Main {
 				//寝る〇
 
 				SleepHeal.sleep(partyMember);
-				
+
 			}
 		}
 
 		//鬼ヶ島到着
 		blank();
 		System.out.printf("%Sたちは、船に乗って大海原を渡ることにします。", boy.getName());
+		scan.nextLine();
 		put("しばらくすると島が見えてきました。\n その島は荒々しく、岩山がそびえ立ち、黒い雲が島を覆っていました。");
+		scan.nextLine();
 		boy.talk("「鬼ヶ島だ！鬼を倒して、村のみんなを守るぞ！」");
+		scan.nextLine();
 		put("そして、桃太郎と仲間たちは決意を胸に、鬼ヶ島へと足を踏み入れました。");
 		blank();
 
@@ -145,30 +206,50 @@ public class Main {
 			//中鬼との戦い
 			MediumDemon demon = new MediumDemon();
 			demons.add(demon);
-			DemonBattle.battle(boy, k, demons, partyMember);
+			DemonBattle.battle(boy, k, demons, partyMember,child);
 			demons.remove(0);
 
 		}
-		
+
 		//ボス鬼に立ち向かう
-		put("鬼ヶ島の中心部にたどり着いた桃太郎たちは、そこに立ちはだかる巨大な洞窟を見つけました。");
-		boy.talk("「ボス鬼はあの洞窟の中にいるはずだ。みんな、覚悟を決めろ！この戦いで村を守り抜こう！」");
-		put("仲間たちは桃太郎の言葉に力強く頷き、一致団結して洞窟へと進みました。");
-		
-		
+		ArrayList<String[]> list3 = new ArrayList<>();
+		String path3 = "3.csv";
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(path3), "UTF-8"))) {
+			String line = null;
+			while ((line = br.readLine()) != null) {
+				list3.add(line.split(","));
+
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		for (String[] string : list3) {
+
+			switch (string[0]) {
+			case "no":
+				put(string[1]);
+				scan.nextLine();
+				break;
+
+			case "boy":
+				boy.talk(string[1]);
+				scan.nextLine();
+				break;
+			}
+		}
+
 		//ボス鬼との戦い
-		BigDemon bigDemon =new BigDemon();
+		BigDemon bigDemon = new BigDemon();
 		demons.add(bigDemon);
-		DemonBattle.battle(boy, k, demons, partyMember);
+		DemonBattle.battle(boy, k, demons, partyMember,child);
 		demons.remove(0);
-		
-		
-		
+
 		//倒した！
 		System.out.printf("そして、長い戦いの末、%sたちの勇気と結束が勝利をもたらしました。\n"
 				+ "ボス鬼は倒れ、小さな鬼たちは降伏しました。\n"
-				+ "%sたちは喜びに満ちた笑顔で村に帰り、村人たちと幸せに暮らしました。\n"+ boy.getName(),boy.getName());
-		
+				+ "%sたちは喜びに満ちた笑顔で村に帰り、村人たちと幸せに暮らしました。\n", boy.getName(), boy.getName());
+
 		put("-------------✩--------------");
 		put("");
 		put("　　　 【GAME　CLEAR】　　　");

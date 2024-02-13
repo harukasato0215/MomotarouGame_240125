@@ -12,13 +12,13 @@ public class SleepHeal {
 	
 	Main.put("道を歩いているといつの間にか夜になった。");
 		scan.nextLine();
-		scan.nextLine();
 		Main.put("眠くなってきたので、今日はゆっくり休むことにしよう。");
 		scan.nextLine();
 		//（いるキャラクター全てヒール）
 		for (int i = 0; i < partyMember.size(); i++) {
 			partyMember.get(i).sleepHeal();
 
+			
 	}
 	}
 }

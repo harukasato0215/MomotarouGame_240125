@@ -9,8 +9,7 @@ import main.Main;
 public abstract  class DemonIsland extends BattleCharacter {
 
 	public DemonIsland() {
-		setName(getName());
-		setHp(getHp());
+	
 	}
 
 	public abstract void attack(PartyCharacter p);
